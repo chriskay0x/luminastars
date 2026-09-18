@@ -1,0 +1,10 @@
+{
+    "builds": [{
+        "src": "luminastars/wsgi.py",
+        "use": "@vercel/python"
+    }],
+    "routes": [{
+        "src": "/(.*)",
+        "dest": "luminastars/wsgi.py"
+    }]
+}
