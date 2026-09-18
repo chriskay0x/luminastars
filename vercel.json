@@ -1,10 +1,25 @@
 {
-    "builds": [{
-        "src": "luminastars/wsgi.py",
-        "use": "@vercel/python"
-    }],
-    "routes": [{
-        "src": "/(.*)",
-        "dest": "luminastars/wsgi.py"
-    }]
+    "builds": [
+        {
+            "src": "build_files.sh",
+            "use": "@vercel/static-build",
+            "config": {
+                "distDir": "staticfiles"
+            }
+        },
+        {
+            "src": "luminastars/wsgi.py",
+            "use": "@vercel/python"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/static/(.*)",
+            "dest": "/$1"
+        },
+        {
+            "src": "/(.*)",
+            "dest": "luminastars/wsgi.py"
+        }
+    ]
 }
