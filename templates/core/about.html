@@ -1,0 +1,167 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}{{ page_title }}{% endblock %}
+{% block meta_description %}{{ meta_description }}{% endblock %}
+
+{% block nav_about %}active{% endblock %}
+
+{% block content %}
+
+<!-- ========== PAGE HERO ========== -->
+<section class="page-hero">
+    <div class="page-hero-overlay"></div>
+    <div class="container page-hero-content">
+        <span class="eyebrow">Our Story</span>
+        <h1>Managing Talent.<br><span class="hero-highlight">Creating Legacies.</span></h1>
+        <p>For over a decade, LuminaStars has been the bridge between exceptional talent and the world's greatest opportunities.</p>
+    </div>
+</section>
+
+
+<!-- ========== MISSION ========== -->
+<section class="section intro-section">
+    <div class="container intro-grid">
+        <div class="intro-left">
+            <span class="section-label">WHO WE ARE</span>
+            <h2>More than an agency. A legacy builder.</h2>
+        </div>
+        <div class="intro-right">
+            <p class="large-text">
+                LuminaStars was founded on the belief that exceptional talent
+                deserves exceptional representation — on every stage, in every market.
+            </p>
+            <p>
+                From our headquarters, we manage a curated roster of the world's
+                most compelling personalities — actors, musicians, athletes, influencers
+                and thought leaders — connecting them with brands, events and audiences
+                that amplify their impact.
+            </p>
+            <p>
+                Our approach is personal, strategic and relentless. We don't just
+                manage careers — we build legacies.
+            </p>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== STATS ========== -->
+<section class="stats-section">
+    <div class="container stats-grid">
+        <div class="stat-item">
+            <span class="stat-number" data-target="50">0</span><span class="stat-suffix">+</span>
+            <span class="stat-label">Celebrities</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number" data-target="200">0</span><span class="stat-suffix">+</span>
+            <span class="stat-label">Events Booked</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number" data-target="15">0</span><span class="stat-suffix">+</span>
+            <span class="stat-label">Countries</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number" data-target="12">0</span><span class="stat-suffix">+</span>
+            <span class="stat-label">Years Experience</span>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== VALUES ========== -->
+<section class="section dark-section">
+    <div class="container">
+        <div class="section-heading light">
+            <div>
+                <span class="section-label">WHAT DRIVES US</span>
+                <h2>Our Values.</h2>
+            </div>
+        </div>
+
+        <div class="values-grid">
+
+            <div class="value-card">
+                <div class="service-icon"><i data-lucide="shield"></i></div>
+                <h3>Integrity First</h3>
+                <p>We represent our talent with honesty and transparency in every deal, negotiation and partnership.</p>
+            </div>
+
+            <div class="value-card">
+                <div class="service-icon"><i data-lucide="zap"></i></div>
+                <h3>Strategic Excellence</h3>
+                <p>Every decision is calculated for long-term growth — not just short-term wins.</p>
+            </div>
+
+            <div class="value-card">
+                <div class="service-icon"><i data-lucide="globe"></i></div>
+                <h3>Global Reach</h3>
+                <p>Our network spans 15+ countries giving our talent access to truly world-class opportunities.</p>
+            </div>
+
+            <div class="value-card">
+                <div class="service-icon"><i data-lucide="heart"></i></div>
+                <h3>Personal Touch</h3>
+                <p>Every client receives dedicated, personalised attention. You're never just a number here.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== SERVICES OVERVIEW ========== -->
+<section class="section">
+    <div class="container">
+        <div class="section-heading">
+            <div>
+                <span class="section-label">WHAT WE DO</span>
+                <h2>Full-spectrum management.</h2>
+            </div>
+            <p>Every service designed to protect, grow and elevate our talent's career.</p>
+        </div>
+
+        <div class="services-grid">
+            <div class="service-card">
+                <span class="service-number">01</span>
+                <div class="service-icon"><i data-lucide="star"></i></div>
+                <h3>Celebrity Management</h3>
+                <p>Complete professional representation and strategic career management.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-number">02</span>
+                <div class="service-icon"><i data-lucide="calendar-check"></i></div>
+                <h3>Event Bookings</h3>
+                <p>Professional celebrity bookings for private and corporate events.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-number">03</span>
+                <div class="service-icon"><i data-lucide="plane"></i></div>
+                <h3>Global Appearances</h3>
+                <p>We coordinate international appearances, vacations and exclusive experiences.</p>
+            </div>
+            <div class="service-card">
+                <span class="service-number">04</span>
+                <div class="service-icon"><i data-lucide="briefcase"></i></div>
+                <h3>Brand Partnerships</h3>
+                <p>Strategic partnerships between celebrities and brands worldwide.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== CTA ========== -->
+<section class="cta-section">
+    <div class="cta-glow"></div>
+    <div class="container cta-content">
+        <span class="section-label">WORK WITH US</span>
+        <h2>Ready to book <span>exceptional talent?</span></h2>
+        <p>Browse our full roster and make your next event truly unforgettable.</p>
+        <a href="{% url 'celebrities:list' %}" class="btn btn-primary">
+            Book Talent <i data-lucide="arrow-right"></i>
+        </a>
+    </div>
+</section>
+
+{% endblock %}

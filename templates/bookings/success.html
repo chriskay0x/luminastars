@@ -1,0 +1,72 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+
+<section class="success-section">
+    <div class="container success-content">
+
+        <!-- Animated checkmark -->
+        <div class="success-icon">
+            <svg viewBox="0 0 52 52" class="checkmark-svg">
+                <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
+                <path class="checkmark-tick" fill="none" d="M14 27l8 8 16-16"/>
+            </svg>
+        </div>
+
+        <span class="section-label">BOOKING RECEIVED</span>
+        <h1>You're all set!</h1>
+        <p class="success-message">
+            Your booking request for
+            <strong>{{ booking.celebrity.name }}</strong>
+            has been received. Our team will review your request and contact you at
+            <strong>{{ booking.client_email }}</strong> within 24 hours.
+        </p>
+
+        <!-- Booking Summary Card -->
+        <div class="success-summary">
+            <h4>Booking Summary</h4>
+            <div class="summary-grid">
+                <div class="summary-item">
+                    <span class="summary-label">Celebrity</span>
+                    <span class="summary-value">{{ booking.celebrity.name }}</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Event Type</span>
+                    <span class="summary-value">{{ booking.get_event_type_display }}</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Event Date</span>
+                    <span class="summary-value">{{ booking.event_date|date:"F j, Y" }}</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Location</span>
+                    <span class="summary-value">{{ booking.event_location }}</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Status</span>
+                    <span class="summary-value status-pending">Pending Review</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Reference</span>
+                    <span class="summary-value">#LS{{ booking.id|stringformat:"04d" }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="success-actions">
+            <a href="{% url 'celebrities:list' %}" class="btn btn-primary">
+                Browse More Talent <i data-lucide="arrow-right"></i>
+            </a>
+            <a href="{% url 'core:home' %}" class="btn btn-outline">
+                Back to Home
+            </a>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

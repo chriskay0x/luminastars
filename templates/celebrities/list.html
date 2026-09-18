@@ -1,0 +1,110 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}{{ page_title }}{% endblock %}
+{% block meta_description %}{{ meta_description }}{% endblock %}
+
+{% block nav_celebrities %}active{% endblock %}
+
+{% block content %}
+
+<!-- ========== PAGE HERO ========== -->
+<section class="page-hero">
+    <div class="page-hero-overlay"></div>
+    <div class="container page-hero-content">
+        <span class="eyebrow">Our Roster</span>
+        <h1>Exceptional <span class="hero-highlight">Talent</span>,<br>Ready to Book.</h1>
+        <p>Browse our curated roster of world-class celebrities available for events, campaigns and exclusive experiences.</p>
+    </div>
+</section>
+
+
+<!-- ========== FILTER TABS ========== -->
+<section class="filter-section">
+    <div class="container">
+        <div class="filter-tabs">
+            <a href="{% url 'celebrities:list' %}"
+               class="filter-tab {% if not active_category %}active{% endif %}">
+                All Talent
+            </a>
+            {% for value, label in categories %}
+            <a href="?category={{ value }}"
+               class="filter-tab {% if active_category == value %}active{% endif %}">
+                {{ label }}
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== CELEBRITY GRID ========== -->
+<section class="section celebrities-section">
+    <div class="container">
+
+        {% if celebrities %}
+        <div class="celebrity-grid celebrity-grid--full">
+            {% for celeb in celebrities %}
+            <article class="celebrity-card">
+                <div class="celebrity-image">
+                    {% if celeb.photo %}
+                        <img src="{{ celeb.photo.url }}" alt="{{ celeb.name }}">
+                    {% else %}
+                        <div class="celebrity-placeholder">
+                            <span>{{ celeb.name|first }}</span>
+                        </div>
+                    {% endif %}
+
+                    <span class="availability-badge
+                        {% if celeb.status == 'available' %}badge--available
+                        {% elif celeb.status == 'limited' %}badge--limited
+                        {% else %}badge--unavailable{% endif %}">
+                        {{ celeb.get_status_display }}
+                    </span>
+
+                    <div class="card-hover-overlay">
+                        <a href="{% url 'celebrities:detail' celeb.slug %}" class="card-book-btn">
+                            View & Book
+                        </a>
+                    </div>
+                </div>
+
+                <div class="celebrity-info">
+                    <span class="celebrity-role">{{ celeb.role }}</span>
+                    <h3>{{ celeb.name }}</h3>
+                    <a href="{% url 'celebrities:detail' celeb.slug %}" class="card-link">
+                        View profile <i data-lucide="arrow-up-right"></i>
+                    </a>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+
+        {% else %}
+        <!-- Empty State -->
+        <div class="empty-state">
+            <div class="empty-icon"><i data-lucide="users"></i></div>
+            <h3>No talent found</h3>
+            <p>Try a different category or check back soon.</p>
+            <a href="{% url 'celebrities:list' %}" class="btn btn-primary">View All Talent</a>
+        </div>
+        {% endif %}
+
+    </div>
+</section>
+
+
+<!-- ========== BOOKING CTA ========== -->
+<section class="cta-section">
+    <div class="cta-glow"></div>
+    <div class="container cta-content">
+        <span class="section-label">READY TO BOOK?</span>
+        <h2>Can't find what you're <span>looking for?</span></h2>
+        <p>Contact our team directly and we'll match you with the perfect talent for your event or campaign.</p>
+        <a href="#contact" class="btn btn-primary">
+            Get In Touch <i data-lucide="arrow-right"></i>
+        </a>
+    </div>
+</section>
+
+{% endblock %}

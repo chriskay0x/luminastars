@@ -1,0 +1,156 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}{{ page_title }}{% endblock %}
+{% block meta_description %}{{ meta_description }}{% endblock %}
+
+{% block nav_celebrities %}active{% endblock %}
+
+{% block content %}
+
+<!-- ========== CELEBRITY DETAIL ========== -->
+<section class="detail-section">
+    <div class="container detail-grid">
+
+        <!-- LEFT: Photo -->
+        <div class="detail-photo-col">
+            <div class="detail-photo-wrap">
+                {% if celebrity.photo %}
+                    <img src="{{ celebrity.photo.url }}" alt="{{ celebrity.name }}">
+                {% else %}
+                    <div class="celebrity-placeholder large">
+                        <span>{{ celebrity.name|first }}</span>
+                    </div>
+                {% endif %}
+
+                <span class="availability-badge detail-badge
+                    {% if celebrity.status == 'available' %}badge--available
+                    {% elif celebrity.status == 'limited' %}badge--limited
+                    {% else %}badge--unavailable{% endif %}">
+                    {{ celebrity.get_status_display }}
+                </span>
+            </div>
+
+            <!-- Social Links -->
+            {% if celebrity.instagram or celebrity.twitter or celebrity.website %}
+            <div class="detail-socials">
+                {% if celebrity.instagram %}
+                <a href="{{ celebrity.instagram }}" class="social-link" target="_blank" rel="noopener" aria-label="Instagram">
+                    <i data-lucide="instagram"></i>
+                </a>
+                {% endif %}
+                {% if celebrity.twitter %}
+                <a href="{{ celebrity.twitter }}" class="social-link" target="_blank" rel="noopener" aria-label="Twitter">
+                    <i data-lucide="twitter"></i>
+                </a>
+                {% endif %}
+                {% if celebrity.website %}
+                <a href="{{ celebrity.website }}" class="social-link" target="_blank" rel="noopener" aria-label="Website">
+                    <i data-lucide="globe"></i>
+                </a>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- RIGHT: Info -->
+        <div class="detail-info-col">
+
+            <!-- Breadcrumb -->
+            <nav class="breadcrumb" aria-label="Breadcrumb">
+                <a href="{% url 'core:home' %}">Home</a>
+                <i data-lucide="chevron-right"></i>
+                <a href="{% url 'celebrities:list' %}">Celebrities</a>
+                <i data-lucide="chevron-right"></i>
+                <span>{{ celebrity.name }}</span>
+            </nav>
+
+            <span class="celebrity-role detail-role">{{ celebrity.role }}</span>
+            <h1 class="detail-name">{{ celebrity.name }}</h1>
+
+            <span class="detail-category">
+                <i data-lucide="tag"></i>
+                {{ celebrity.get_category_display }}
+            </span>
+
+            <div class="detail-divider"></div>
+
+            <div class="detail-bio">
+                <h3>About</h3>
+                <p>{{ celebrity.bio }}</p>
+            </div>
+
+            <div class="detail-divider"></div>
+
+            <!-- Booking Card -->
+            <div class="booking-card">
+                <div class="booking-card-header">
+                    <span class="booking-card-label">Book This Talent</span>
+                    <span class="availability-badge
+                        {% if celebrity.status == 'available' %}badge--available
+                        {% elif celebrity.status == 'limited' %}badge--limited
+                        {% else %}badge--unavailable{% endif %}">
+                        {{ celebrity.get_status_display }}
+                    </span>
+                </div>
+                <p>Interested in booking <strong>{{ celebrity.name }}</strong> for your event, campaign or experience?</p>
+                {% if celebrity.status != 'unavailable' %}
+                <a href="{% url 'bookings:create' celebrity.slug %}" class="btn btn-primary booking-btn">
+                    Request a Booking <i data-lucide="arrow-right"></i>
+                </a>
+                {% else %}
+                <button class="btn btn-outline booking-btn" disabled>
+                    Currently Unavailable
+                </button>
+                {% endif %}
+                <p class="booking-note">
+                    <i data-lucide="shield-check"></i>
+                    All bookings are handled by our professional team.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== MORE TALENT ========== -->
+<section class="section dark-section">
+    <div class="container">
+        <div class="section-heading light">
+            <div>
+                <span class="section-label">DISCOVER MORE</span>
+                <h2>More Talent</h2>
+            </div>
+            <a href="{% url 'celebrities:list' %}" class="text-link light-link">
+                View all <i data-lucide="arrow-right"></i>
+            </a>
+        </div>
+        <div class="celebrity-grid">
+            {% for celeb in celebrity.get_related %}
+            <article class="celebrity-card">
+                <div class="celebrity-image">
+                    {% if celeb.photo %}
+                        <img src="{{ celeb.photo.url }}" alt="{{ celeb.name }}">
+                    {% else %}
+                        <div class="celebrity-placeholder"><span>{{ celeb.name|first }}</span></div>
+                    {% endif %}
+                    <span class="availability-badge badge--available">{{ celeb.get_status_display }}</span>
+                    <div class="card-hover-overlay">
+                        <a href="{% url 'celebrities:detail' celeb.slug %}" class="card-book-btn">View & Book</a>
+                    </div>
+                </div>
+                <div class="celebrity-info">
+                    <span class="celebrity-role">{{ celeb.role }}</span>
+                    <h3>{{ celeb.name }}</h3>
+                    <a href="{% url 'celebrities:detail' celeb.slug %}" class="card-link">
+                        View profile <i data-lucide="arrow-up-right"></i>
+                    </a>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}{{ page_title }}{% endblock %}
+{% block meta_description %}{{ meta_description }}{% endblock %}
+
+{% block nav_projects %}active{% endblock %}
+
+{% block content %}
+
+<!-- ========== PAGE HERO ========== -->
+<section class="page-hero">
+    <div class="page-hero-overlay"></div>
+    <div class="container page-hero-content">
+        <span class="eyebrow">Selected Work</span>
+        <h1>Featured <span class="hero-highlight">Projects.</span></h1>
+        <p>A showcase of our most celebrated campaigns, tours, appearances and brand partnerships worldwide.</p>
+    </div>
+</section>
+
+
+<!-- ========== FILTER TABS ========== -->
+<section class="filter-section">
+    <div class="container">
+        <div class="filter-tabs">
+            <a href="{% url 'core:projects' %}"
+               class="filter-tab {% if not active_category %}active{% endif %}">
+                All Projects
+            </a>
+            {% for value, label in categories %}
+            <a href="?category={{ value }}"
+               class="filter-tab {% if active_category == value %}active{% endif %}">
+                {{ label }}
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== PROJECTS GRID ========== -->
+<section class="section">
+    <div class="container">
+
+        {% if projects %}
+        <div class="projects-grid projects-grid--full">
+            {% for project in projects %}
+            <article class="project-card {% if forloop.first and not active_category %}large{% endif %}">
+                {% if project.image %}
+                <img src="{{ project.image.url }}" alt="{{ project.title }}">
+                {% else %}
+                <div class="project-placeholder">
+                    <i data-lucide="image"></i>
+                </div>
+                {% endif %}
+
+                <div class="project-overlay">
+                    <span class="project-year">{{ project.year }}</span>
+                    <h3>{{ project.title }}</h3>
+                    {% if project.description %}
+                    <p>{{ project.description|truncatewords:12 }}</p>
+                    {% endif %}
+                    <span class="project-category-tag">{{ project.get_category_display }}</span>
+                </div>
+            </article>
+            {% endfor %}
+        </div>
+
+        {% else %}
+        <div class="empty-state">
+            <div class="empty-icon"><i data-lucide="folder-open"></i></div>
+            <h3>No projects found</h3>
+            <p>Try a different category or check back soon.</p>
+            <a href="{% url 'core:projects' %}" class="btn btn-primary">View All Projects</a>
+        </div>
+        {% endif %}
+
+    </div>
+</section>
+
+
+<!-- ========== CTA ========== -->
+<section class="cta-section">
+    <div class="cta-glow"></div>
+    <div class="container cta-content">
+        <span class="section-label">START YOUR PROJECT</span>
+        <h2>Ready to create something <span>extraordinary?</span></h2>
+        <p>Book one of our exceptional celebrities for your next event, campaign or experience.</p>
+        <a href="{% url 'celebrities:list' %}" class="btn btn-primary">
+            Book Talent <i data-lucide="arrow-right"></i>
+        </a>
+    </div>
+</section>
+
+{% endblock %}

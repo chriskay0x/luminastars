@@ -1,0 +1,88 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}Book Talent | LuminaStars{% endblock %}
+{% block meta_description %}Browse and book our exceptional roster of celebrities for your next event or brand campaign.{% endblock %}
+
+{% block content %}
+
+<!-- ========== PAGE HERO ========== -->
+<section class="page-hero">
+    <div class="page-hero-overlay"></div>
+    <div class="container page-hero-content">
+        <span class="eyebrow">Book Talent</span>
+        <h1>Ready to Book a <span class="hero-highlight">Celebrity?</span></h1>
+        <p>Browse our full roster, select your preferred talent and submit a booking request — our team handles the rest.</p>
+    </div>
+</section>
+
+
+<!-- ========== HOW IT WORKS ========== -->
+<section class="section">
+    <div class="container">
+
+        <div class="section-heading">
+            <div>
+                <span class="section-label">THE PROCESS</span>
+                <h2>How booking works.</h2>
+            </div>
+            <a href="{% url 'celebrities:list' %}" class="btn btn-primary">
+                Browse Talent <i data-lucide="arrow-right"></i>
+            </a>
+        </div>
+
+        <div class="services-grid">
+
+            <div class="service-card">
+                <span class="service-number">01</span>
+                <div class="service-icon"><i data-lucide="search"></i></div>
+                <h3>Browse Our Roster</h3>
+                <p>Explore our curated roster of world-class celebrities filtered by category and availability.</p>
+            </div>
+
+            <div class="service-card">
+                <span class="service-number">02</span>
+                <div class="service-icon"><i data-lucide="user-check"></i></div>
+                <h3>Select Your Talent</h3>
+                <p>View full profiles, check availability and choose the perfect celebrity for your event.</p>
+            </div>
+
+            <div class="service-card">
+                <span class="service-number">03</span>
+                <div class="service-icon"><i data-lucide="file-text"></i></div>
+                <h3>Submit a Request</h3>
+                <p>Fill in your event details — date, location, type and budget. Takes less than 2 minutes.</p>
+            </div>
+
+            <div class="service-card">
+                <span class="service-number">04</span>
+                <div class="service-icon"><i data-lucide="check-circle"></i></div>
+                <h3>We Handle the Rest</h3>
+                <p>Our team reviews your request within 24hrs and reaches out to confirm all details.</p>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- ========== CTA ========== -->
+<section class="cta-section">
+    <div class="cta-glow"></div>
+    <div class="container cta-content">
+        <span class="section-label">GET STARTED</span>
+        <h2>Find your perfect <span>talent match.</span></h2>
+        <p>Browse our full roster of available celebrities and submit your booking request today.</p>
+        <div style="display:flex; gap:1rem; flex-wrap:wrap; justify-content:center;">
+            <a href="{% url 'celebrities:list' %}" class="btn btn-primary">
+                Browse All Talent <i data-lucide="arrow-right"></i>
+            </a>
+            <a href="{% url 'core:contact' %}" class="btn btn-outline">
+                Contact Our Team
+            </a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'core/base.html' %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+
+<section class="success-section">
+    <div class="container success-content">
+
+        <!-- Animated checkmark -->
+        <div class="success-icon">
+            <svg viewBox="0 0 52 52" class="checkmark-svg">
+                <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
+                <path class="checkmark-tick" fill="none" d="M14 27l8 8 16-16"/>
+            </svg>
+        </div>
+
+        <span class="section-label">APPLICATION RECEIVED</span>
+        <h1>Welcome to LuminaStars!</h1>
+        <p class="success-message">
+            Your <strong>{{ application.plan.get_tier_display }} Membership</strong>
+            application has been received. Our team will review it and
+            contact you at <strong>{{ application.email }}</strong> within 48 hours.
+        </p>
+
+        <!-- Application Summary -->
+        <div class="success-summary">
+            <h4>Application Summary</h4>
+            <div class="summary-grid">
+                <div class="summary-item">
+                    <span class="summary-label">Full Name</span>
+                    <span class="summary-value">{{ application.full_name }}</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Membership Tier</span>
+                    <span class="summary-value">{{ application.plan.get_tier_display }}</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Email</span>
+                    <span class="summary-value">{{ application.email }}</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Membership Fee</span>
+                    <span class="summary-value">${{ application.plan.price|floatformat:0 }}.00</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Country</span>
+                    <span class="summary-value">{{ application.country }}</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Status</span>
+                    <span class="summary-value status-pending">Pending Review</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="success-actions">
+            <a href="{% url 'core:home' %}" class="btn btn-primary">
+                Back to Home <i data-lucide="arrow-right"></i>
+            </a>
+            <a href="{% url 'celebrities:list' %}" class="btn btn-outline">
+                Browse Talent
+            </a>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

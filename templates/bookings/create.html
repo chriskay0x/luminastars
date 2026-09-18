@@ -1,0 +1,169 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}{{ page_title }}{% endblock %}
+{% block meta_description %}{{ meta_description }}{% endblock %}
+
+{% block nav_celebrities %}active{% endblock %}
+
+{% block content %}
+
+<section class="booking-section">
+    <div class="container booking-grid">
+
+        <!-- LEFT: Celebrity Summary -->
+        <div class="booking-sidebar">
+            <div class="booking-celeb-card">
+                {% if celebrity.photo %}
+                <img src="{{ celebrity.photo.url }}" alt="{{ celebrity.name }}" class="booking-celeb-photo">
+                {% endif %}
+                <div class="booking-celeb-info">
+                    <span class="celebrity-role">{{ celebrity.role }}</span>
+                    <h2>{{ celebrity.name }}</h2>
+                    <span class="availability-badge
+                        {% if celebrity.status == 'available' %}badge--available
+                        {% elif celebrity.status == 'limited' %}badge--limited
+                        {% else %}badge--unavailable{% endif %}">
+                        {{ celebrity.get_status_display }}
+                    </span>
+                </div>
+            </div>
+
+            <!-- What happens next -->
+            <div class="booking-steps">
+                <h4>What happens next?</h4>
+                <ul>
+                    <li>
+                        <span class="step-num">01</span>
+                        <span>Submit your booking request below</span>
+                    </li>
+                    <li>
+                        <span class="step-num">02</span>
+                        <span>Our team reviews your request within 24hrs</span>
+                    </li>
+                    <li>
+                        <span class="step-num">03</span>
+                        <span>We contact you to confirm availability & terms</span>
+                    </li>
+                    <li>
+                        <span class="step-num">04</span>
+                        <span>Booking confirmed — let the magic happen</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- RIGHT: Booking Form -->
+        <div class="booking-form-col">
+
+            <!-- Breadcrumb -->
+            <nav class="breadcrumb">
+                <a href="{% url 'core:home' %}">Home</a>
+                <i data-lucide="chevron-right"></i>
+                <a href="{% url 'celebrities:list' %}">Celebrities</a>
+                <i data-lucide="chevron-right"></i>
+                <a href="{% url 'celebrities:detail' celebrity.slug %}">{{ celebrity.name }}</a>
+                <i data-lucide="chevron-right"></i>
+                <span>Book</span>
+            </nav>
+
+            <span class="section-label">BOOKING REQUEST</span>
+            <h1 class="booking-title">Book <span class="hero-highlight">{{ celebrity.name }}</span></h1>
+            <p class="booking-subtitle">Fill in the details below and our team will get back to you within 24 hours.</p>
+
+            <form method="POST" class="booking-form" id="bookingForm" novalidate>
+                {% csrf_token %}
+
+                <!-- Client Details -->
+                <div class="form-group-title">
+                    <i data-lucide="user"></i> Your Details
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="id_client_name">{{ form.client_name.label }}</label>
+                        {{ form.client_name }}
+                        {% if form.client_name.errors %}
+                        <span class="form-error">{{ form.client_name.errors.0 }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_client_email">{{ form.client_email.label }}</label>
+                        {{ form.client_email }}
+                        {% if form.client_email.errors %}
+                        <span class="form-error">{{ form.client_email.errors.0 }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="id_client_phone">{{ form.client_phone.label }} <span class="optional">Optional</span></label>
+                        {{ form.client_phone }}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_company">{{ form.company.label }} <span class="optional">Optional</span></label>
+                        {{ form.company }}
+                    </div>
+                </div>
+
+                <!-- Event Details -->
+                <div class="form-group-title" style="margin-top: 2rem;">
+                    <i data-lucide="calendar"></i> Event Details
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="id_event_type">{{ form.event_type.label }}</label>
+                        {{ form.event_type }}
+                        {% if form.event_type.errors %}
+                        <span class="form-error">{{ form.event_type.errors.0 }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_event_date">{{ form.event_date.label }}</label>
+                        {{ form.event_date }}
+                        {% if form.event_date.errors %}
+                        <span class="form-error">{{ form.event_date.errors.0 }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="id_event_location">{{ form.event_location.label }}</label>
+                        {{ form.event_location }}
+                        {% if form.event_location.errors %}
+                        <span class="form-error">{{ form.event_location.errors.0 }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="form-group">
+                        <label for="id_budget">{{ form.budget.label }} <span class="optional">Optional</span></label>
+                        {{ form.budget }}
+                    </div>
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="id_event_description">{{ form.event_description.label }}</label>
+                    {{ form.event_description }}
+                    {% if form.event_description.errors %}
+                    <span class="form-error">{{ form.event_description.errors.0 }}</span>
+                    {% endif %}
+                </div>
+
+                <button type="submit" class="btn btn-primary booking-submit-btn">
+                    Submit Booking Request <i data-lucide="arrow-right"></i>
+                </button>
+
+                <p class="form-disclaimer">
+                    <i data-lucide="lock"></i>
+                    Your information is secure and will only be used to process your booking request.
+                </p>
+
+            </form>
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

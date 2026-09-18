@@ -1,0 +1,166 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}{{ page_title }}{% endblock %}
+{% block meta_description %}{{ meta_description }}{% endblock %}
+
+{% block nav_contact %}active{% endblock %}
+
+{% block content %}
+
+<!-- ========== PAGE HERO ========== -->
+<section class="page-hero">
+    <div class="page-hero-overlay"></div>
+    <div class="container page-hero-content">
+        <span class="eyebrow">Get In Touch</span>
+        <h1>Let's Create Something <span class="hero-highlight">Extraordinary.</span></h1>
+        <p>Whether you're booking talent, exploring membership or discussing a partnership — our team is ready.</p>
+    </div>
+</section>
+
+
+<!-- ========== CONTACT SECTION ========== -->
+<section class="section contact-section">
+    <div class="container contact-grid">
+
+        <!-- LEFT: Info -->
+        <div class="contact-info">
+
+            <div class="contact-info-block">
+                <span class="section-label">CONTACT US</span>
+                <h2>We'd love to<br>hear from you.</h2>
+                <p>Fill in the form and a member of our team will respond within 24 hours. For urgent bookings, call us directly.</p>
+            </div>
+
+            <div class="contact-details">
+
+                <div class="contact-detail-item">
+                    <div class="contact-detail-icon">
+                        <i data-lucide="mail"></i>
+                    </div>
+                    <div>
+                        <span class="contact-detail-label">Email Us</span>
+                        <a href="mailto:hello@luminastars.com" class="contact-detail-value">
+                            hello@luminastars.com
+                        </a>
+                    </div>
+                </div>
+
+                <div class="contact-detail-item">
+                    <div class="contact-detail-icon">
+                        <i data-lucide="phone"></i>
+                    </div>
+                    <div>
+                        <span class="contact-detail-label">Call Us</span>
+                        <a href="tel:+10000000000" class="contact-detail-value">
+                            +1 (000) 000-0000
+                        </a>
+                    </div>
+                </div>
+
+                <div class="contact-detail-item">
+                    <div class="contact-detail-icon">
+                        <i data-lucide="map-pin"></i>
+                    </div>
+                    <div>
+                        <span class="contact-detail-label">Our Office</span>
+                        <span class="contact-detail-value">
+                            123 Lumina Avenue,<br>New York, NY 10001
+                        </span>
+                    </div>
+                </div>
+
+                <div class="contact-detail-item">
+                    <div class="contact-detail-icon">
+                        <i data-lucide="clock"></i>
+                    </div>
+                    <div>
+                        <span class="contact-detail-label">Office Hours</span>
+                        <span class="contact-detail-value">
+                            Mon – Fri, 9am – 6pm EST
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Social Links -->
+            <div class="contact-socials">
+                <span class="contact-detail-label">Follow Us</span>
+                <div class="social-links" style="margin-top: 0.75rem;">
+                    <a href="#" class="social-link" aria-label="Instagram"><i data-lucide="instagram"></i></a>
+                    <a href="#" class="social-link" aria-label="Facebook"><i data-lucide="facebook"></i></a>
+                    <a href="#" class="social-link" aria-label="TikTok"><i data-lucide="music-2"></i></a>
+                    <a href="#" class="social-link" aria-label="LinkedIn"><i data-lucide="linkedin"></i></a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- RIGHT: Form -->
+        <div class="contact-form-col">
+
+            <div class="contact-form-card">
+                <form method="POST" class="booking-form" id="contactForm" novalidate>
+                    {% csrf_token %}
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="id_full_name">{{ form.full_name.label }}</label>
+                            {{ form.full_name }}
+                            {% if form.full_name.errors %}
+                            <span class="form-error">{{ form.full_name.errors.0 }}</span>
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_email">{{ form.email.label }}</label>
+                            {{ form.email }}
+                            {% if form.email.errors %}
+                            <span class="form-error">{{ form.email.errors.0 }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="id_phone">
+                                {{ form.phone.label }}
+                                <span class="optional">Optional</span>
+                            </label>
+                            {{ form.phone }}
+                        </div>
+                        <div class="form-group">
+                            <label for="id_subject">{{ form.subject.label }}</label>
+                            {{ form.subject }}
+                            {% if form.subject.errors %}
+                            <span class="form-error">{{ form.subject.errors.0 }}</span>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="id_message">{{ form.message.label }}</label>
+                        {{ form.message }}
+                        {% if form.message.errors %}
+                        <span class="form-error">{{ form.message.errors.0 }}</span>
+                        {% endif %}
+                    </div>
+
+                    <button type="submit" class="btn btn-primary booking-submit-btn">
+                        Send Message <i data-lucide="send"></i>
+                    </button>
+
+                    <p class="form-disclaimer">
+                        <i data-lucide="lock"></i>
+                        Your information is kept private and never shared with third parties.
+                    </p>
+
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

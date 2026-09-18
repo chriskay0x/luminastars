@@ -1,0 +1,144 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}LuminaStars | Where Stars Are Born{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}Premier celebrity management & global event booking agency.{% endblock %}">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    {% block extra_head %}{% endblock %}
+</head>
+
+<body>
+
+    <!-- Scroll Progress Bar -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- HEADER -->
+    <header class="header" id="header">
+        <div class="container nav-container">
+
+            <a class="logo" href="{% url 'core:home' %}">
+                <span class="logo-emblem">L</span>
+                <span class="logo-text">
+                    <strong>LUMINA</strong>
+                    <small>STARS</small>
+                </span>
+            </a>
+
+            <nav class="navbar" id="navbar">
+                <a href="{% url 'core:home' %}"       class="nav-link {% block nav_home %}{% endblock %}">Home</a>
+                <a href="{% url 'core:about' %}"      class="nav-link {% block nav_about %}{% endblock %}">About</a>
+                <a href="{% url 'celebrities:list' %}" class="nav-link {% block nav_celebrities %}{% endblock %}">Celebrities</a>
+                <a href="{% url 'core:projects' %}"   class="nav-link {% block nav_projects %}{% endblock %}">Projects</a>
+                <a href="{% url 'membership:page' %}" class="nav-link {% block nav_membership %}{% endblock %}">Membership</a>
+                <a href="{% url 'core:contact' %}"    class="nav-link {% block nav_contact %}{% endblock %}">Contact</a>
+            </nav>
+
+            <a href="{% url 'celebrities:list' %}" class="btn-book-talent">
+                Book Talent <span>→</span>
+            </a>
+
+            <button class="menu-toggle" id="menuToggle" aria-label="Open Menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+
+        </div>
+
+        <!-- Mobile Drawer -->
+        <div class="mobile-menu" id="mobileMenu">
+            <nav class="mobile-nav">
+                <a href="{% url 'core:home' %}"        class="mobile-nav-link">Home</a>
+                <a href="{% url 'core:about' %}"       class="mobile-nav-link">About</a>
+                <a href="{% url 'celebrities:list' %}" class="mobile-nav-link">Celebrities</a>
+                <a href="{% url 'core:projects' %}"    class="mobile-nav-link">Projects</a>
+                <a href="{% url 'membership:page' %}"  class="mobile-nav-link">Membership</a>
+                <a href="{% url 'core:contact' %}"     class="mobile-nav-link">Contact</a>
+                <a href="{% url 'celebrities:list' %}" class="btn-book-talent mobile-book">Book Talent →</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- PAGE CONTENT -->
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer" id="contact">
+        <div class="container footer-inner">
+
+            <div class="footer-brand">
+                <a class="logo footer-logo" href="{% url 'core:home' %}">
+                    <span class="logo-emblem">L</span>
+                    <span class="logo-text">
+                        <strong>LUMINA</strong>
+                        <small>STARS</small>
+                    </span>
+                </a>
+                <p>Professional celebrity management, global representation and unforgettable event experiences.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link" aria-label="Instagram"><i data-lucide="instagram"></i></a>
+                    <a href="#" class="social-link" aria-label="Facebook"><i data-lucide="facebook"></i></a>
+                    <a href="#" class="social-link" aria-label="TikTok"><i data-lucide="music-2"></i></a>
+                    <a href="#" class="social-link" aria-label="LinkedIn"><i data-lucide="linkedin"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h4 class="footer-heading">Navigation</h4>
+                <a href="{% url 'core:home' %}"        class="footer-link">Home</a>
+                <a href="{% url 'core:about' %}"       class="footer-link">About</a>
+                <a href="{% url 'celebrities:list' %}" class="footer-link">Celebrities</a>
+                <a href="{% url 'core:projects' %}"    class="footer-link">Projects</a>
+                <a href="{% url 'membership:page' %}"  class="footer-link">Membership</a>
+                <a href="{% url 'core:contact' %}"     class="footer-link">Contact</a>
+            </div>
+
+            <div class="footer-column">
+                <h4 class="footer-heading">Services</h4>
+                <a href="{% url 'core:about' %}"       class="footer-link">Celebrity Management</a>
+                <a href="{% url 'celebrities:list' %}" class="footer-link">Event Bookings</a>
+                <a href="{% url 'celebrities:list' %}" class="footer-link">Global Appearances</a>
+                <a href="{% url 'core:about' %}"       class="footer-link">Brand Partnerships</a>
+                <a href="{% url 'membership:page' %}"  class="footer-link">Membership</a>
+            </div>
+
+            <div class="footer-column">
+                <h4 class="footer-heading">Stay Connected</h4>
+                <p class="footer-newsletter-text">Exclusive updates on talent availability and events.</p>
+                <form class="newsletter-form" id="newsletterForm">
+                    <input type="email" class="newsletter-input" placeholder="Your email address" required>
+                    <button type="submit" class="newsletter-btn"><i data-lucide="arrow-right"></i></button>
+                </form>
+            </div>
+
+        </div>
+
+        <div class="container footer-bottom">
+            <p>© 2026 LuminaStars. All rights reserved.</p>
+            <p>Professional representation worldwide.</p>
+        </div>
+    </footer>
+
+    <script>lucide.createIcons();</script>
+    <script src="{% static 'js/main.js' %}"></script>
+    {% block extra_scripts %}{% endblock %}
+
+</body>
+</html>

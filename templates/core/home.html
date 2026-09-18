@@ -1,0 +1,315 @@
+{% extends 'core/base.html' %}
+
+{% block nav_home %}active{% endblock %}
+
+{% block content %}
+
+<!-- ========== HERO ========== -->
+<section class="hero">
+    <div class="hero-overlay"></div>
+
+    <div class="hero-marquee">
+        <div class="marquee-track">
+            <span>Eva Longoria</span><span class="dot">✦</span>
+            <span>Tyler Scherer</span><span class="dot">✦</span>
+            <span>Kaley Cuoco</span><span class="dot">✦</span>
+            <span>Marcus Reed</span><span class="dot">✦</span>
+            <span>Sophia Lane</span><span class="dot">✦</span>
+            <span>Eva Longoria</span><span class="dot">✦</span>
+            <span>Tyler Scherer</span><span class="dot">✦</span>
+            <span>Kaley Cuoco</span><span class="dot">✦</span>
+            <span>Marcus Reed</span><span class="dot">✦</span>
+            <span>Sophia Lane</span><span class="dot">✦</span>
+        </div>
+    </div>
+
+    <div class="hero-content container">
+        <span class="eyebrow">Global Celebrity Management</span>
+        <h1 class="hero-title">
+            Where Exceptional
+            <span class="hero-highlight">Talent</span> Meets
+            Opportunity.
+        </h1>
+        <p class="hero-sub">
+            Professional representation, strategic career management
+            and unforgettable celebrity experiences — worldwide.
+        </p>
+        <div class="hero-buttons">
+            <a href="{% url 'celebrities:list' %}" class="btn btn-primary">
+                Book Talent <i data-lucide="arrow-right"></i>
+            </a>
+            <a href="#about" class="btn btn-outline">
+                Discover Our Agency
+            </a>
+        </div>
+    </div>
+
+    <div class="hero-scroll">
+        <span>Scroll to explore</span>
+        <i data-lucide="arrow-down"></i>
+    </div>
+</section>
+
+
+<!-- ========== STATS ========== -->
+<section class="stats-section">
+    <div class="container stats-grid">
+        <div class="stat-item">
+            <span class="stat-number" data-target="50">0</span><span class="stat-suffix">+</span>
+            <span class="stat-label">Celebrities</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number" data-target="200">0</span><span class="stat-suffix">+</span>
+            <span class="stat-label">Events Booked</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number" data-target="15">0</span><span class="stat-suffix">+</span>
+            <span class="stat-label">Countries</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number" data-target="12">0</span><span class="stat-suffix">+</span>
+            <span class="stat-label">Years Experience</span>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== INTRO / ABOUT ========== -->
+<section class="section intro-section" id="about">
+    <div class="container intro-grid">
+        <div class="intro-left">
+            <span class="section-label">LUMINASTARS MANAGEMENT</span>
+            <h2>Managing talent.<br>Creating legacies.</h2>
+        </div>
+        <div class="intro-right">
+            <p class="large-text">
+                LuminaStars represents exceptional personalities across
+                entertainment, media, fashion and global events.
+            </p>
+            <p>
+                We combine strategic career management with personalized
+                representation to help our talent achieve meaningful,
+                long-lasting success on the world stage.
+            </p>
+            <a href="#" class="text-link">
+                Learn more about us <i data-lucide="arrow-up-right"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== FEATURED CELEBRITIES ========== -->
+<section class="section dark-section">
+    <div class="container">
+
+        <div class="section-heading light">
+            <div>
+                <span class="section-label">OUR TALENT</span>
+                <h2>Featured Celebrities</h2>
+            </div>
+            <a href="{% url 'celebrities:list' %}" class="text-link light-link">
+                View all talent <i data-lucide="arrow-right"></i>
+            </a>
+        </div>
+
+        <div class="celebrity-grid">
+            {% for celeb in featured_celebrities %}
+            <article class="celebrity-card">
+                <div class="celebrity-image">
+                    {% if celeb.photo %}
+                        <img src="{{ celeb.photo.url }}" alt="{{ celeb.name }}">
+                    {% else %}
+                        <div class="celebrity-placeholder">
+                            <span>{{ celeb.name|first }}</span>
+                        </div>
+                    {% endif %}
+                    <span class="availability-badge
+                        {% if celeb.status == 'available' %}badge--available
+                        {% elif celeb.status == 'limited' %}badge--limited
+                        {% else %}badge--unavailable{% endif %}">
+                        {{ celeb.get_status_display }}
+                    </span>
+                    <div class="card-hover-overlay">
+                        <a href="{% url 'celebrities:detail' celeb.slug %}" class="card-book-btn">Book Now</a>
+                    </div>
+                </div>
+                <div class="celebrity-info">
+                    <span class="celebrity-role">{{ celeb.role }}</span>
+                    <h3>{{ celeb.name }}</h3>
+                    <a href="{% url 'celebrities:detail' celeb.slug %}" class="card-link">
+                        View profile <i data-lucide="arrow-up-right"></i>
+                    </a>
+                </div>
+            </article>
+            {% empty %}
+            <p style="color: var(--color-muted); grid-column: 1/-1; text-align:center; padding: 3rem 0;">
+                Add celebrities via the admin panel to display them here.
+            </p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== SERVICES ========== -->
+<section class="section" id="services">
+    <div class="container">
+
+        <div class="section-heading">
+            <div>
+                <span class="section-label">WHAT WE DO</span>
+                <h2>More than management.</h2>
+            </div>
+            <p>We create opportunities, protect careers and connect exceptional talent with global audiences.</p>
+        </div>
+
+        <div class="services-grid">
+
+            <div class="service-card">
+                <span class="service-number">01</span>
+                <div class="service-icon"><i data-lucide="star"></i></div>
+                <h3>Celebrity Management</h3>
+                <p>Complete professional representation and strategic career management.</p>
+            </div>
+
+            <div class="service-card">
+                <span class="service-number">02</span>
+                <div class="service-icon"><i data-lucide="calendar-check"></i></div>
+                <h3>Event Bookings</h3>
+                <p>Professional celebrity bookings for private and corporate events.</p>
+            </div>
+
+            <div class="service-card">
+                <span class="service-number">03</span>
+                <div class="service-icon"><i data-lucide="plane"></i></div>
+                <h3>Global Appearances</h3>
+                <p>We coordinate international appearances, vacations and exclusive experiences.</p>
+            </div>
+
+            <div class="service-card">
+                <span class="service-number">04</span>
+                <div class="service-icon"><i data-lucide="briefcase"></i></div>
+                <h3>Brand Partnerships</h3>
+                <p>Strategic partnerships between celebrities and brands worldwide.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- ========== PROJECTS ========== -->
+<section class="section projects-section" id="projects">
+    <div class="container">
+
+        <div class="section-heading">
+            <div>
+                <span class="section-label">SELECTED WORK</span>
+                <h2>Featured Projects</h2>
+            </div>
+            <a href="#" class="text-link">View all projects <i data-lucide="arrow-right"></i></a>
+        </div>
+
+        <div class="projects-grid">
+            {% for project in featured_projects %}
+            <article class="project-card {% if forloop.first %}large{% endif %}">
+                {% if project.image %}
+                    <img src="{{ project.image.url }}" alt="{{ project.title }}">
+                {% else %}
+                    <div class="project-placeholder">
+                        <i data-lucide="image"></i>
+                    </div>
+                {% endif %}
+                <div class="project-overlay">
+                    <span class="project-year">{{ project.year }}</span>
+                    <h3>{{ project.title }}</h3>
+                    {% if project.description and forloop.first %}
+                    <p>{{ project.description|truncatewords:10 }}</p>
+                    {% endif %}
+                </div>
+            </article>
+            {% empty %}
+            <p style="color: var(--color-muted); text-align:center; padding: 3rem 0;">
+                Add projects via the admin panel to display them here.
+            </p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- ========== MEMBERSHIP ========== -->
+<section class="section membership-preview-section">
+    <div class="container">
+
+        <div class="section-heading">
+            <div>
+                <span class="section-label">MANAGEMENT MEMBERSHIP</span>
+                <h2>Become a member of<br>our community.</h2>
+            </div>
+            <p>Join our management community and enjoy access to selected member opportunities, networking experiences and exclusive programs.</p>
+        </div>
+
+        <div class="plans-grid">
+            {% for plan in membership_plans %}
+            <div class="plan-card {% if plan.is_featured %}plan-card--featured{% endif %}">
+
+                {% if plan.is_featured %}
+                <span class="plan-badge">Most Popular</span>
+                {% endif %}
+
+                <span class="plan-tier">{{ plan.get_tier_display }}</span>
+                <h3 class="plan-name">{{ plan.get_tier_display }} Membership</h3>
+
+                <div class="plan-price">
+                    <span class="plan-currency">$</span>
+                    <span class="plan-amount">{{ plan.price|floatformat:0 }}</span>
+                </div>
+
+                <p class="plan-tagline">{{ plan.tagline }}</p>
+
+                <ul class="plan-benefits">
+                    {% for benefit in plan.get_benefits_list %}
+                    <li>
+                        <i data-lucide="check"></i>
+                        {{ benefit }}
+                    </li>
+                    {% endfor %}
+                </ul>
+
+                <a href="{% url 'membership:page' %}"
+                   class="btn {% if plan.is_featured %}btn-primary{% else %}btn-outline{% endif %} plan-btn">
+                    Join Now →
+                </a>
+
+            </div>
+            {% empty %}
+            <div style="grid-column:1/-1; text-align:center; padding: 3rem 0;">
+                <p style="color: var(--color-muted);">Add membership plans via the admin panel.</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div style="text-align:center; margin-top: 2.5rem;">
+            <a href="{% url 'membership:page' %}" class="text-link">
+                View full membership details <i data-lucide="arrow-right"></i>
+            </a>
+        </div>
+
+    </div>
+</section>
+
+<!-- ========== BOOKING CTA ========== -->
+<section class="cta-section">
+    <div class="cta-glow"></div>
+    <div class="container cta-content">
+        <span class="section-label">WORK WITH OUR TALENT</span>
+        <h2>Make your next event <span>unforgettable.</span></h2>
+        <p>Book one of our exceptional celebrities for your next event, campaign or private experience.</p>
+        <a href="{% url 'celebrities:list' %}" class="btn btn-primary">
+            Explore & Book Talent <i data-lucide="arrow-right"></i>
+        </a>
+    </div>
+</section>
+
+{% endblock %}
